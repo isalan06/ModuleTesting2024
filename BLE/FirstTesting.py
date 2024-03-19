@@ -31,6 +31,8 @@ server_sock.listen(1)
 
 port = server_sock.getsockname()[1]
 
+print("Waiting for connection on RFCOMM channel", port)
+
 uuid = "94f39d29-7d6d-437d-973b-fba39e49d4ee"
 
 bluetooth.advertise_service(server_sock, "SampleServer", service_id=uuid,
@@ -39,7 +41,7 @@ bluetooth.advertise_service(server_sock, "SampleServer", service_id=uuid,
                             # protocols=[bluetooth.OBEX_UUID]
                             )
 
-print("Waiting for connection on RFCOMM channel", port)
+
 
 client_sock,address = server_sock.accept()
 print("Accepted connection from ",address)
