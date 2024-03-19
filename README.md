@@ -16,3 +16,10 @@ start service at every boot: systemctl enable vncserver-x11-serviced.service
 logout: sudo rm /root/.vnc/config.d/vncserver-x11.d/CloudCredentials.bed
 
 //---------------------------------------------------
+
+#Git Hub
+
+Reference#1: https://raspberrypi.club/285.html
+
+
+//---------------------------------------------------
