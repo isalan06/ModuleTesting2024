@@ -1,6 +1,7 @@
 #!/usr/bin/python3
 #FirstTesting.py
 
+import os
 import bluetooth
 from bluetooth.ble import DiscoveryService
 '''
@@ -26,6 +27,9 @@ for address, name in devices.items():
 
 # RFCOMM Server
 print("Server")
+
+os.system("bluetoothctl power on")
+os.system("bluetoothctl discoverable on")
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
