@@ -26,7 +26,7 @@ print("Server")
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
-port = 1
+port = bluetooth.get_available_port( bluetooth.RFCOMM )#1
 server_sock.bind(("",port))
 server_sock.listen(1)
 
