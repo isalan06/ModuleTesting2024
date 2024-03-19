@@ -27,8 +27,6 @@ for address, name in devices.items():
 # RFCOMM Server
 print("Server")
 
-bluetooth.enable()
-
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
 server_sock.bind(("",bluetooth.PORT_ANY))
