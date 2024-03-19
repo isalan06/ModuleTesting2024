@@ -9,3 +9,12 @@ Ref2:
 
 
 // --------------------------------------
+
+#Blue Tooth
+
+Ref1: https://shengyu7697.github.io/python-bluetooth-first-program/
+Ref2: https://shengyu7697.github.io/python-bluetooth-sdp/
+
+pip install pyBluez
+
+// --------------------------------------
