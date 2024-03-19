@@ -3,7 +3,7 @@
 
 import bluetooth
 from bluetooth.ble import DiscoveryService
-
+'''
 print("Scan Blue Tooth")
 
 nearby_devices = bluetooth.discover_devices()
@@ -21,8 +21,13 @@ devices = service.discover(2)
 for address, name in devices.items():
     print("name: {}, address: {}".format(name, address))
 
+'''
+    
+
 # RFCOMM Server
 print("Server")
+
+bluetooth.enable()
 
 server_sock=bluetooth.BluetoothSocket( bluetooth.RFCOMM )
 
