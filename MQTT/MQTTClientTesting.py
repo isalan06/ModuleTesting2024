@@ -3,12 +3,12 @@
 
 import paho.mqtt.client as mqtt
 
-def on_connect(client, userdata, flags, rc)
+def on_connect(client, userdata, flags, rc):
     print("Connected with result code " + str(rc))
 
     client.subscribe("status/test")
 
-def on_message(client, userdata, msg)
+def on_message(client, userdata, msg):
     print(msg.topic + " " + msg.payload.decode('uft-8'))
 
 client = mqtt.Client()
