@@ -1,22 +1,49 @@
 #!/usr/bin/python3
 #MQTTClientTesting.py
 
-import paho.mqtt.client as mqtt
+# python 3.11
 
-def on_connect(client, userdata, flags, rc):
-    print("Connected with result code " + str(rc))
+import random
 
-    client.subscribe("status/test")
+from paho.mqtt import client as mqtt_client
 
-def on_message(client, userdata, msg):
-    print(msg.topic + " " + msg.payload.decode('uft-8'))
 
-client = mqtt.Client()
+broker = '192.168.8.99'
+port = 1883
+topic = "status/test"
+# Generate a Client ID with the subscribe prefix.
+client_id = f'subscribe-{random.randint(0, 100)}'
+# username = 'emqx'
+# password = 'public'
 
-client.on_connect = on_connect
 
-client.on_message = on_message
+def connect_mqtt() -> mqtt_client:
+    def on_connect(client, userdata, flags, rc):
+        if rc == 0:
+            print("Connected to MQTT Broker!")
+        else:
+            print("Failed to connect, return code %d\n", rc)
 
-client.connect("192.168.8.99", 1883, 60)
+    client = mqtt_client.Client(client_id)
+    # client.username_pw_set(username, password)
+    client.on_connect = on_connect
+    client.connect(broker, port)
+    return client
 
-client.loop_forever()
+
+def subscribe(client: mqtt_client):
+    def on_message(client, userdata, msg):
+        print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
+
+    client.subscribe(topic)
+    client.on_message = on_message
+
+
+def run():
+    client = connect_mqtt()
+    subscribe(client)
+    client.loop_forever()
+
+
+if __name__ == '__main__':
+    run()
