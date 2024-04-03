@@ -11,6 +11,7 @@ from paho.mqtt import client as mqtt_client
 broker = '192.168.8.99'
 port = 1883
 topic = "status/test"
+topic2 = "status/update"
 # Generate a Client ID with the subscribe prefix.
 client_id = f'subscribe-{random.randint(0, 100)}'
 # username = 'emqx'
@@ -36,6 +37,7 @@ def subscribe(client: mqtt_client):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
 
     client.subscribe(topic)
+    client.subscribe(topic2)
     client.on_message = on_message
 
 
