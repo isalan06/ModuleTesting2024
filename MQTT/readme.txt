@@ -45,6 +45,10 @@ https://swf.com.tw/?p=1473#google_vignette
 MQTT Client
 https://mqttx.app/
 
+Python
+#pip3 install paho-mqtt
+pip3 install "paho-mqtt<2.0.0"
+
 //------------------------------------------------------------------
 
 install MongoDB
@@ -58,4 +62,11 @@ brew install mongodb-community
 brew services start mongodb-community
 brew services start mongodb/brew/mongodb-community
 
+python
+pip3 install pymongo
 
+//------------------------------------------------------------------
+
+install mysql
+
+pip3 install pymysql

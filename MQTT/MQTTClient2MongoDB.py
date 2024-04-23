@@ -10,8 +10,11 @@ import json
 # import mqtt client
 from paho.mqtt import client as mqtt_client
 
+# import mysql
+import pymysql
 
-broker = '192.168.100.199'
+
+broker = 'localhost'
 port = 1883
 topic = "status/test"
 topic2 = "status/update"
@@ -27,6 +30,9 @@ client = MongoClient("localhost", 27017)
 # Creating a database name GFG
 db = client["updatetesting"]
 coil = db["status"]
+
+# Create a MySQL connection
+connect_db = pymysql.connect(host='localhost', port=3306, user='root', passwd='12345678', charset='utf8', db='anko_iot')
 
 def connect_mqtt() -> mqtt_client:
     def on_connect(client, userdata, flags, rc):
@@ -45,9 +51,14 @@ def connect_mqtt() -> mqtt_client:
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
         print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
-        document_string = msg.payload.decode()
-        document = json.loads(document_string)
-        coil.insert_one(document)
+
+        if (msg.topic == topic) or (msg.topic2 == topic2):
+            print('Record data to MongoDB')
+            document_string = msg.payload.decode()
+            document = json.loads(document_string)
+            coil.insert_one(document)
+        else:
+            print('Record data to MySQL')
 
 
 
@@ -65,3 +76,4 @@ def run():
 
 if __name__ == '__main__':
     run()
+    connect_db.close()
