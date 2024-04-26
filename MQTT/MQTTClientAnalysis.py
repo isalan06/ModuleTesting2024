@@ -6,6 +6,7 @@ import pymysql
 
 from operator import itemgetter
 
+global data_assembly
 data_assembly = []
 
 class MyData:
@@ -73,6 +74,7 @@ class MyData:
             
 
     def ShowMessage(self):
+        global data_assembly
         newlist = sorted(data_assembly, key=itemgetter('topic'))
 
         showmessage2 = '\r'

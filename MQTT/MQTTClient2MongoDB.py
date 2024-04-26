@@ -14,7 +14,7 @@ from paho.mqtt import client as mqtt_client
 import pymysql
 
 from MQTTClientAnalysis import MyData
-from MQTTClientAnalysis import data_assembly
+import MQTTClientAnalysis
 
 import threading
 import time
@@ -59,7 +59,6 @@ def connect_mqtt() -> mqtt_client:
 
 def subscribe(client: mqtt_client):
     def on_message(client, userdata, msg):
-        global data_assembly
         #print(f"Received `{msg.payload.decode()}` from `{msg.topic}` topic")
         document_string = msg.payload.decode()
 
@@ -96,19 +95,23 @@ def subscribe(client: mqtt_client):
     client.on_message = on_message
 
 def SetMessage(title, message):
-    global data_assembly
     title_String = title.split('/')[2]
+    #print(len(MQTTClientAnalysis.data_assembly))
     for i in range(5):
-        if data_assembly[i]['topic'] == title_String:
+        if len(MQTTClientAnalysis.data_assembly) <= i:
+            break
+        #print(MQTTClientAnalysis.data_assembly[i]['topic'])
+        #print(title_String)
+        if MQTTClientAnalysis.data_assembly[i]['topic'] == title_String:
             data_array = message.replace(' ', '').replace('\n', '').split('|')
-            data_assembly["hz_in"] = int(data_array[0])
-            data_assembly["hz_out"] = int(data_array[1])
-            data_assembly["a_out"] = int(data_array[2])
-            data_assembly["rpm_out"] = int(data_array[3])
-            data_assembly["temp"] = int(data_array[4])
-            data_assembly["error"] = int(data_array[5])
-            data_assembly["day"] = int(data_array[6])
-            data_assembly["hour"] = int(data_array[7])
+            MQTTClientAnalysis.data_assembly[i]["hz_in"] = int(data_array[0])
+            MQTTClientAnalysis.data_assembly[i]["hz_out"] = int(data_array[1])
+            MQTTClientAnalysis.data_assembly[i]["a_out"] = int(data_array[2])
+            MQTTClientAnalysis.data_assembly[i]["rpm_out"] = int(data_array[3])
+            MQTTClientAnalysis.data_assembly[i]["temp"] = int(data_array[4])
+            MQTTClientAnalysis.data_assembly[i]["error"] = int(data_array[5])
+            MQTTClientAnalysis.data_assembly[i]["day"] = int(data_array[6])
+            MQTTClientAnalysis.data_assembly[i]["hour"] = int(data_array[7])
             break
 
 
@@ -118,6 +121,7 @@ def DoWork():
     while True:
         print("\033c", end='')
         print(count)
+        #print(len(MQTTClientAnalysis.data_assembly))
         myData.ShowMessage()
         count = count + 1
 
