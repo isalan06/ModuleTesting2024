@@ -28,6 +28,7 @@ topic = "status/test"
 topic2 = "status/update"
 topic3 = "status/download"
 topic4 = [("status/fctrl/y01",1),("status/fctrl/y02",1),("status/fctrl/y03",1),("status/fctrl/y04",1),("status/fctrl/y05",1)]
+topic5 = "status/fctrl/s01"
 # Generate a Client ID with the subscribe prefix.
 client_id = f'subscribe-{random.randint(0, 100)}'
 # username = 'emqx'
@@ -66,9 +67,31 @@ def subscribe(client: mqtt_client):
             #print('Record data to MongoDB')
             document = json.loads(document_string)
             coil.insert_one(document)
+        elif msg.topic == topic5:
+            with connect_db.cursor() as cursor:
+                sql = """
+                INSERT INTO table_dio_record2 (record_time, topic, value) VALUES 
+                (NOW(), '
+                """
+                sql += msg.topic
+                sql +=  """
+                        ','
+                        """
+                sql += document_string
+                sql +=  """
+                        ')
+                        """
+    
+                # 執行 SQL 指令
+                cursor.execute(sql)
+    
+                # 提交至 SQL
+                connect_db.commit()
         else:
             #print('Record data to MySQL')
-            SetMessage(msg.topic, document_string)
+            if msg.topic != topic5:
+                #print (msg.topic)
+                SetMessage(msg.topic, document_string)
             with connect_db.cursor() as cursor:
                 sql = """
                 INSERT INTO table_dio_record (record_time, topic, value) VALUES 
@@ -92,6 +115,7 @@ def subscribe(client: mqtt_client):
     client.subscribe(topic)
     client.subscribe(topic2)
     client.subscribe(topic4)
+    client.subscribe(topic5)
     client.on_message = on_message
 
 def SetMessage(title, message):
