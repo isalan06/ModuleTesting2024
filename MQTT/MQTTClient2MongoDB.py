@@ -29,16 +29,17 @@ topic2 = "status/update"
 topic3 = "status/download"
 topic4 = [("status/fctrl/y01",1),("status/fctrl/y02",1),("status/fctrl/y03",1),("status/fctrl/y04",1),("status/fctrl/y05",1)]
 topic5 = "status/fctrl/s01"
+topic6 = "iot/topic"
 # Generate a Client ID with the subscribe prefix.
 client_id = f'subscribe-{random.randint(0, 100)}'
 # username = 'emqx'
 # password = 'public'
 
 # Creating a client
-client = MongoClient("localhost", 27017)
+mcclient = MongoClient("localhost", 27017)
  
 # Creating a database name GFG
-db = client["updatetesting"]
+db = mcclient["updatetesting"]
 coil = db["status"]
 
 # Create a MySQL connection
@@ -67,6 +68,19 @@ def subscribe(client: mqtt_client):
             #print('Record data to MongoDB')
             document = json.loads(document_string)
             coil.insert_one(document)
+        elif msg.topic == topic6:
+            pass
+            document = json.loads(document_string)
+            machine_name = document['topic']
+            naber = document['naber']
+            machine_title = machine_name + '_' + naber
+            flag_name = document['status']
+            topic_name = 'sensor'
+            if flag_name[0:3] == 'z05':
+                topic_name = 'vibration'
+            db2 = mcclient[machine_title]
+            coil2 = db2[topic_name]
+            coil2.insert_one(document)
         elif msg.topic == topic5:
             with connect_db.cursor() as cursor:
                 sql = """
@@ -116,6 +130,7 @@ def subscribe(client: mqtt_client):
     client.subscribe(topic2)
     client.subscribe(topic4)
     client.subscribe(topic5)
+    client.subscribe(topic6)
     client.on_message = on_message
 
 def SetMessage(title, message):
