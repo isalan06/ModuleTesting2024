@@ -3,13 +3,20 @@ const WebSocketServer = require('ws');
 // Creating a new websocket server
 const wss = new WebSocketServer.Server({ port: 8080 })
 // Creating connection using websocket
-wss.on("connection", ws => {
+wss.on("connection", (ws, req) => {
+  ws.id = req.url;
+  console.log(ws.id.lastIndexOf('/'));
   console.log("new client connected");
+  console.log(ws.id);
+  console.log(wss.clients.size);
+  wss.clients.forEach(client=>{
+    console.log(client.id);
+  });
  // sending message to client
   ws.send('Welcome, you are connected!');
   //on message from client
   ws.on("message", data => {
-  console.log(`Client has sent us: ${data}`)
+  console.log(`Client ${id} has sent us: ${data}`)
   });
   // handling what to do when clients disconnects from server
   ws.on("close", () => {
