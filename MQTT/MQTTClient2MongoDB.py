@@ -82,6 +82,7 @@ def subscribe(client: mqtt_client):
             coil2 = db2[topic_name]
             coil2.insert_one(document)
         elif msg.topic == topic5:
+            SetMessage2(document_string)
             with connect_db.cursor() as cursor:
                 sql = """
                 INSERT INTO table_dio_record2 (record_time, topic, value) VALUES 
@@ -103,9 +104,9 @@ def subscribe(client: mqtt_client):
                 connect_db.commit()
         else:
             #print('Record data to MySQL')
-            if msg.topic != topic5:
-                #print (msg.topic)
-                SetMessage(msg.topic, document_string)
+
+            SetMessage(msg.topic, document_string)
+
             with connect_db.cursor() as cursor:
                 sql = """
                 INSERT INTO table_dio_record (record_time, topic, value) VALUES 
@@ -152,6 +153,26 @@ def SetMessage(title, message):
             MQTTClientAnalysis.data_assembly[i]["day"] = int(data_array[6])
             MQTTClientAnalysis.data_assembly[i]["hour"] = int(data_array[7])
             break
+
+def SetMessage2(message):
+    data_array = message.replace(' ', '').replace('\n', '').split('|')
+    MQTTClientAnalysis.Vibration_data['vibration_id'] = data_array[0]
+    MQTTClientAnalysis.Vibration_data['z05-02'] = data_array[1]
+    MQTTClientAnalysis.Vibration_data['x-OA'] = data_array[2]
+    MQTTClientAnalysis.Vibration_data['x-band1'] = data_array[3]
+    MQTTClientAnalysis.Vibration_data['x-band2'] = data_array[4]
+    MQTTClientAnalysis.Vibration_data['x-band3'] = data_array[5]
+    MQTTClientAnalysis.Vibration_data['y-OA'] = data_array[6]
+    MQTTClientAnalysis.Vibration_data['y-band1'] = data_array[7]
+    MQTTClientAnalysis.Vibration_data['y-band2'] = data_array[8]
+    MQTTClientAnalysis.Vibration_data['y-band3'] = data_array[9]
+    MQTTClientAnalysis.Vibration_data['z-OA'] = data_array[10]
+    MQTTClientAnalysis.Vibration_data['z-band1'] = data_array[11]
+    MQTTClientAnalysis.Vibration_data['z-band2'] = data_array[12]
+    MQTTClientAnalysis.Vibration_data['z-band3'] = data_array[13]
+    MQTTClientAnalysis.Vibration_data['z05-15'] = data_array[14]
+    MQTTClientAnalysis.Vibration_data['z05-16'] = data_array[15]
+    MQTTClientAnalysis.Vibration_data['z05-17'] = data_array[16]
 
 
 def DoWork():

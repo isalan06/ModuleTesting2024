@@ -7,7 +7,14 @@ import pymysql
 from operator import itemgetter
 
 global data_assembly
+global Vibration_data
 data_assembly = []
+Vibration_data = {'vibration_id':'0', 'z05-02':'0', 
+                  'x-OA':'0', 'x-band1':'0', 'x-band2':'0', 'x-band3':'0',
+                  'y-OA':'0', 'y-band1':'0', 'y-band2':'0', 'y-band3':'0',
+                  'z-OA':'0', 'z-band1':'0', 'z-band2':'0', 'z-band3':'0',
+                  'z05-15':'0','z05-16':'0','z05-17':'0'
+                  }
 
 class MyData:
 
@@ -75,6 +82,7 @@ class MyData:
 
     def ShowMessage(self):
         global data_assembly
+        global Vibration_data
         newlist = sorted(data_assembly, key=itemgetter('topic'))
 
         showmessage2 = '\r'
@@ -90,6 +98,13 @@ class MyData:
             showmessage2 += 'day: ' + '{:<3}'.format(da['day']) + '; '
             showmessage2 += 'hour: ' + '{:<3}'.format(da['hour']) + '; '
             showmessage2 += '\n'
+        
+        showmessage2 += '\n'
+        showmessage2 += 'vibration_id:' + Vibration_data['vibration_id'] + '\n'
+        showmessage2 += 'X-axis=> OA:' + Vibration_data['x-OA'] + '; Band1:' + Vibration_data['x-band1'] + '; Band2:' + Vibration_data['x-band2'] + '; Band3:' + Vibration_data['x-band3'] + ';\n'
+        showmessage2 += 'Y-axis=> OA:' + Vibration_data['y-OA'] + '; Band1:' + Vibration_data['y-band1'] + '; Band2:' + Vibration_data['y-band2'] + '; Band3:' + Vibration_data['y-band3'] + ';\n'
+        showmessage2 += 'Z-axis=> OA:' + Vibration_data['z-OA'] + '; Band1:' + Vibration_data['z-band1'] + '; Band2:' + Vibration_data['z-band2'] + '; Band3:' + Vibration_data['z-band3'] + ';\n'
+        showmessage2 += 'Z05-02:' + Vibration_data['z05-02'] + '; Z05-15:' + Vibration_data['z05-15'] + '; Z05-16:' + Vibration_data['z05-16'] + '; Z05-17:' + Vibration_data['z05-17'] + ';\n'
 
         print(showmessage2)
 
