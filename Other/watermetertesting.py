@@ -44,6 +44,7 @@ print(t.portstr + ";" + str(t.baudrate) + ";" + str(t.bytesize) + ";" + str(t.pa
 senddata = [0x1, 0x3, 0x62, 0xD, 0x0, 0x0, 0x0, 0x0, 0x97, 0x44]
 
 print("Send message: " + str(senddata))
+t.write(senddata)
 
 GPIO.cleanup()
 
