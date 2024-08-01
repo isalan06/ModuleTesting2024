@@ -11,3 +11,5 @@ print("Initializing............")
 GPIO.setmode(GPIO.BOARD)
 GPIO.setup(wakeup_pin, GPIO.OUT)
 
+GPIO.cleanup()
+
