@@ -39,7 +39,7 @@ GPIO.setup(RS485_EN,GPIO.OUT)
 GPIO.output(RS485_EN,GPIO.HIGH)
 
 t = serial.Serial("/dev/ttyS0",sp_baudrate)    
-print(t.portstr) 
+print(t.portstr + ";" + str(t.baudrate)) 
 print(t.baudrate)
 print(t.bytesize)
 print(t.parity)
