@@ -52,11 +52,11 @@ print("Start to read from serial port........")
 try:
     while 1:
         dataarray = t.read(56)
-        #print (str)
-        res = ''.join(format(x, '02x') for x in dataarray)
+        print (dataarray)
+        #res = ''.join(format(x, '02x') for x in dataarray)
  
         # printing result
-        print("The string after conversion : " + str(res))
+        #print("The string after conversion : " + str(res))
 except KeyboardInterrupt:
     pass
 
