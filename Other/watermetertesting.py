@@ -13,6 +13,8 @@ RS485_EN =  4
 
 wakeup_pin = 5
 
+sp_baudrate = 9600
+
 print("Initializing............")
 
 
@@ -36,8 +38,13 @@ print("Send Message to")
 GPIO.setup(RS485_EN,GPIO.OUT)
 GPIO.output(RS485_EN,GPIO.HIGH)
 
-t = serial.Serial("/dev/ttyS0",115200)    
+t = serial.Serial("/dev/ttyS0",sp_baudrate)    
 print(t.portstr) 
+print(t.baudrate)
+print(t.bytesize)
+print(t.parity)
+print(t.stopbits)
+
 
 
 GPIO.cleanup()
