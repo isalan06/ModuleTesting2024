@@ -33,19 +33,17 @@ print("Trigger wake up LOW.........")
 GPIO.output(wakeup_pin, GPIO.LOW)
 time.sleep(0.001)
 
-print("Send Message to")
+print("Initializing Serial...............")
 
 GPIO.setup(RS485_EN,GPIO.OUT)
 GPIO.output(RS485_EN,GPIO.HIGH)
 
 t = serial.Serial("/dev/ttyS0",sp_baudrate)    
-print(t.portstr + ";" + str(t.baudrate)) 
-print(t.baudrate)
-print(t.bytesize)
-print(t.parity)
-print(t.stopbits)
+print(t.portstr + ";" + str(t.baudrate) + ";" + str(t.bytesize) + ";" + str(t.parity) + ";" + str(t.stopbits) + ";") 
 
+senddata = [0x1, 0x3, 0x62, 0xD, 0x0, 0x0, 0x0, 0x0, 0x97, 0x44]
 
+print("Send message: " + str(senddata))
 
 GPIO.cleanup()
 
