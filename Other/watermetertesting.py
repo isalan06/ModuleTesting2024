@@ -33,7 +33,7 @@ print("Send Message to")
 GPIO.setup(RS485_EN,GPIO.OUT)
 GPIO.output(RS485_EN,GPIO.HIGH)
 
-t = serial.Serial("/dev/ttyS3",115200)    
+t = serial.Serial("/dev/ttyS0",115200)    
 print(t.portstr) 
 
 
