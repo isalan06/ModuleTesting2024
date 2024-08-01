@@ -51,7 +51,7 @@ GPIO.output(RS485_EN,GPIO.LOW)
 print("Start to read from serial port........")
 try:
     while 1:
-        str = t.read()
+        str = t.read(56)
         print (str)
 except KeyboardInterrupt:
     pass
