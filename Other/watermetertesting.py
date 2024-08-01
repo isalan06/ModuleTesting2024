@@ -51,8 +51,12 @@ GPIO.output(RS485_EN,GPIO.LOW)
 print("Start to read from serial port........")
 try:
     while 1:
-        str = t.read(10)
-        print (str)
+        dataarray = t.read(56)
+        #print (str)
+        res = ''.join(format(x, '02x') for x in dataarray)
+ 
+        # printing result
+        print("The string after conversion : " + str(res))
 except KeyboardInterrupt:
     pass
 
