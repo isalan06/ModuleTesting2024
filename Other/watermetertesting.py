@@ -40,6 +40,8 @@ GPIO.output(RS485_EN,GPIO.HIGH)
 
 t = serial.Serial("/dev/ttyS0",sp_baudrate)    
 print(t.portstr + ";" + str(t.baudrate) + ";" + str(t.bytesize) + ";" + str(t.parity) + ";" + str(t.stopbits) + ";") 
+t.reset_input_buffer()
+t.reset_output_buffer()
 
 senddata = [0x1, 0x3, 0x62, 0xD, 0x0, 0x0, 0x0, 0x0, 0x97, 0x44]
 
