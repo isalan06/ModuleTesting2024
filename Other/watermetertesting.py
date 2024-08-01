@@ -15,6 +15,9 @@ wakeup_pin = 5
 
 print("Initializing............")
 
+
+GPIO.setwarnings(False)
+
 GPIO.setmode(GPIO.BCM)
 GPIO.setup(wakeup_pin, GPIO.OUT)
 
