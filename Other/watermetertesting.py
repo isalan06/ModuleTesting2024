@@ -46,13 +46,15 @@ senddata = [0x1, 0x3, 0x62, 0xD, 0x0, 0x0, 0x0, 0x0, 0x97, 0x44]
 print("Send message: " + str(senddata))
 t.write(senddata)
 
-#GPIO.output(RS485_EN,GPIO.LOW)
+GPIO.output(RS485_EN,GPIO.LOW)
 
 print("Start to read from serial port........")
 try:
     while 1:
-        dataarray = t.read(56)
+        dataarray = t.read()
         print (dataarray)
+
+        time.sleep(0.01)
         #res = ''.join(format(x, '02x') for x in dataarray)
  
         # printing result
