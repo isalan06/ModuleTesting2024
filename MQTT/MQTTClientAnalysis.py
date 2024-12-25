@@ -54,10 +54,10 @@ class MyData:
                 """
             cursor.execute(sql)
 
-            sql = 'SELECT * FROM (SELECT id, record_time, topic, value FROM anko_iot.table_dio_record order by id desc LIMIT 10) AS RAW_DATA GROUP BY topic;'
+            sql = 'SELECT * FROM (SELECT id, record_time, topic, value FROM anko_iot.table_dio_record WHERE topic LIKE \'y\' order by id desc LIMIT 10) AS RAW_DATA GROUP BY topic;'
             cursor.execute(sql)
             result_set = cursor.fetchall()
-            #print(result_set)
+            print(result_set)
 
             data_assembly = []
             for row in result_set:

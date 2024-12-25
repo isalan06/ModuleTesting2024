@@ -10,7 +10,7 @@ import pymysql
 import random
 import json
 
-broker = '192.168.1.60'
+broker = 'localhost'#'192.168.1.60'
 port = 1883
 topic = "status/fctrl/#"
 client_id = f'subscribe-{random.randint(0, 100)}'
