@@ -49,11 +49,13 @@ def main():
             d1000, d1001, d1002 = readPLCData(client)
 
             print("Disconnect from Modbus Device")
-            client.close()  # 关闭连接
+            
         else:
             print("Cannot connect to Modbus Device")
     except ConnectionException as e:
         print("Connection Error:", e)
+    finally:
+        client.close()  # 关闭连接
  
  
 if __name__ == "__main__":
