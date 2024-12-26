@@ -5,7 +5,7 @@
 # pip install pymodbus
 # pip install pyserial
 
-from pymodbus.client import ModbusSerialClient as ModbusClient
+from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.exceptions import ModbusException, ConnectionException
 import logging
 
