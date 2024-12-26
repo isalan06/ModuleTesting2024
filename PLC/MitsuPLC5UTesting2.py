@@ -9,6 +9,8 @@ from pymodbus.client.sync import ModbusSerialClient as ModbusClient
 from pymodbus.exceptions import ModbusException, ConnectionException
 import logging
 
+UNIT = 0x1
+
 # 配置日志记录
 logging.basicConfig()
 log = logging.getLogger()
@@ -18,7 +20,7 @@ client = ModbusClient(method='rtu', port='/dev/ttyS0', baudrate=19200, timeout=3
 
 def readPLCData(client):
     try:
-        result = client.read_holding_registers(address=1000, count=3, slave=1)  
+        result = client.read_holding_registers(address=1000, count=3, unit=UNIT)  
  
         if result.isError():
             # 处理错误
