@@ -16,7 +16,7 @@ logging.basicConfig()
 log = logging.getLogger()
 log.setLevel(logging.DEBUG)
 
-client = ModbusClient(method='rtu', port='/dev/ttyS0', baudrate=19200, timeout=3,stopbits=1, bytesize=8, parity='O')
+client = ModbusClient(method='rtu', port='/dev/ttyTHS1', baudrate=19200, timeout=3,stopbits=1, bytesize=8, parity='O')
 
 def readPLCData(client):
     try:
