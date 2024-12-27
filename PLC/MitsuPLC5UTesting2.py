@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-#MitsuPLC5UTesting.py
+#MitsuPLC5UTesting2.py
 
 # 请先安装 pymodbus 和 pyserial
 # pip install pymodbus
@@ -18,6 +18,7 @@ log = logging.getLogger()
 log.setLevel(logging.DEBUG)
 
 client = ModbusClient(method='rtu', port=serial_device, baudrate=19200, timeout=3,stopbits=1, bytesize=8, parity='O')
+
 
 def readPLCData(client):
     try:
