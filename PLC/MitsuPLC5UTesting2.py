@@ -10,7 +10,7 @@ from pymodbus.exceptions import ModbusException, ConnectionException
 import logging
 
 UNIT = 0x1
-serial_device = '/dev/ttyTHS1'
+serial_device = '/dev/ttyTHS2'
 
 # 配置日志记录
 logging.basicConfig()
